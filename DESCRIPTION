@@ -6,7 +6,7 @@ Authors@R: as.person(c(
     "Andrew Benson <bensonandrew10@gmail.com> [aut]"
   ))
 Description: Using a tidy and cohesive framework this package draws data directly from the US Treasury Department's website <https://www.treasury.gov/resource-center/data-chart-center/interest-rates/pages/TextView.aspx?data=yieldAll> and presents it in either a timeseries or tidy format for ease of consumption.
-Depends: R (>= 3.5.2)
+Depends: R (>= 3.5.1)
 Imports:
   rvest,
   xml2,
