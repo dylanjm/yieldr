@@ -35,7 +35,6 @@ vignettes/*.pdf
 # CRAN and Other readmes not needed
 cran-comments.md
 README.rmd
-.travis.yml
 
 # Shiny token, see https://shiny.rstudio.com/articles/shinyapps.html
 rsconnect/
