@@ -3,6 +3,14 @@
 
 # yieldr <img src="man/figures/hex_sticker.png" align="right" height="150" width="125"/>
 
+[![Build
+Status](https://travis-ci.com/dylanjm/yieldr.svg?branch=master)](https://travis-ci.com/dylanjm/yieldr)
+<!-- ![Current CRAN Version](https://www.r-pkg.org/badges/version/bjscrapeR) -->
+[![Project Status: Active – The project has reached a stable, usable
+state and is being actively
+developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+<!-- ![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/bjscrapeR) -->
+
 ## Installation
 
 You can install yieldr from github with:
