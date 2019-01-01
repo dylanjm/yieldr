@@ -39,8 +39,7 @@ treasury_dat %>%
   ggplot(aes(x = duration, y = rate, group = NEW_DATE)) + 
   geom_line() + 
   scale_x_discrete(labels = c("3M", "6M", "1Y", "2Y",
-                              "3Y", "5Y", "7Y", "10Y", "20Y", "30Y",
-                              "30YD")) + 
+                              "3Y", "5Y", "7Y", "10Y", "20Y", "30Y")) + 
   labs(title = "Year: {frame_time}") +                             
   transition_time(NEW_DATE) 
 ```
