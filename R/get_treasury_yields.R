@@ -1,11 +1,19 @@
 #' @title Fetch Treasury Yield Data
 #' @description Returns data in either tidy or time-series format
+#' @param from A character vector containing a starting date of desired rates. Defaults to \code{"1990-01-01"} (the beginning of the data).
+#' @param to A character vector containing an ending date of desired rates. Defaults to \code{\link[Sys.time]{Sys.Date}}
+#' @param tidy A boolean value to determine if the tibble should be returned wide (time-series) or long (tidy) depending on the preferences of the user. Defaults to \code{FALSE}.
 #' @return A tibble containing datetime and numeric values
+#' @importFrom stats setNames
 #' @import dplyr
 #' @import rvest
 #' @import xml2
 #' @export get_treasury_yields
-get_treasury_yields <- function(){
+#' @examples
+#' \donttest{dat <- get_treasury_yields(from = "2017-01-01", to = "2018-01-01")}
+#'
+#' \donttest{dat <- get_treasury_yields(tidy = TRUE)}
+get_treasury_yields <- function(from = "1990-01-01", to = Sys.Date(), tidy = FALSE){
 
   # This is currently the URL where the data resides
   yield_xml <- read_xml("https://data.treasury.gov/feed.svc/DailyTreasuryYieldCurveRateData")
@@ -34,12 +42,21 @@ get_treasury_yields <- function(){
   # Make the data pretty and correct the data types across the board
   # Potetntial Break Point - if column names ever change to not use "BC"
   clean_yield_data <- raw_dat %>%
-    mutate(NEW_DATE = lubridate::ymd_hms(NEW_DATE)) %>%
+    mutate(NEW_DATE = lubridate::date(NEW_DATE)) %>%
     mutate_at(vars(matches("BC")), as.numeric) %>%
     arrange(NEW_DATE) %>%
     select(-Id) %>%
     mutate(ID = 1:nrow(.)) %>%
-    select(ID, everything())
+    select(ID, everything()) %>%
+    filter(between(NEW_DATE, lubridate::as_date(from),
+                   lubridate::as_date(to)))
+
+  # If user wants the data in tidy, we'll give it to them.
+  if(tidy){
+    clean_yield_data <- clean_yield_data %>%
+      tidyr::gather(key = "duration", value = "rate", 3:15) %>%
+      arrange(NEW_DATE)
+  }
 
   return(clean_yield_data)
 }

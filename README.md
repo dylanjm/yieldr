@@ -27,18 +27,51 @@ As of right now, the package only comes with one function:
 
 ``` r
 library(yieldr)
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
+library(gganimate)
+#> Loading required package: ggplot2
+library(ggplot2)
 
-treasury_dat <- get_treasury_yields()
-head(treasury_dat, 5)
-#> # A tibble: 5 x 15
-#>      ID NEW_DATE            BC_1MONTH BC_2MONTH BC_3MONTH BC_6MONTH
-#>   <int> <dttm>                  <dbl>     <dbl>     <dbl>     <dbl>
-#> 1     1 1990-01-02 00:00:00        NA        NA      7.83      7.89
-#> 2     2 1990-01-03 00:00:00        NA        NA      7.89      7.94
-#> 3     3 1990-01-04 00:00:00        NA        NA      7.84      7.90
-#> 4     4 1990-01-05 00:00:00        NA        NA      7.79      7.85
-#> 5     5 1990-01-08 00:00:00        NA        NA      7.79      7.88
-#> # ... with 9 more variables: BC_1YEAR <dbl>, BC_2YEAR <dbl>,
-#> #   BC_3YEAR <dbl>, BC_5YEAR <dbl>, BC_7YEAR <dbl>, BC_10YEAR <dbl>,
-#> #   BC_20YEAR <dbl>, BC_30YEAR <dbl>, BC_30YEARDISPLAY <dbl>
+treasury_dat <- get_treasury_yields(tidy = TRUE)
+
+treasury_dat %>% 
+  mutate(duration = forcats::fct_relevel(duration, unique(treasury_dat$duration))) %>% 
+  filter(!duration %in% c("BC_1MONTH", "BC_2MONTH", "BC_30YEARDISPLAY")) %>% 
+  ggplot(aes(x = duration, y = rate, group = NEW_DATE)) + 
+  geom_line() + 
+  scale_x_discrete(labels = c("3M", "6M", "1Y", "2Y",
+                              "3Y", "5Y", "7Y", "10Y", "20Y", "30Y",
+                              "30YD")) + 
+  labs(title = "Year: {frame_time}") +                             
+  transition_time(NEW_DATE) 
+#> Warning: Removed 7 rows containing missing values (geom_path).
+#> Warning: Removed 75 rows containing missing values (geom_path).
+#> Warning: Removed 73 rows containing missing values (geom_path).
+#> Warning: Removed 72 rows containing missing values (geom_path).
+#> Warning: Removed 74 rows containing missing values (geom_path).
+
+#> Warning: Removed 74 rows containing missing values (geom_path).
+#> Warning: Removed 72 rows containing missing values (geom_path).
+#> Warning: Removed 73 rows containing missing values (geom_path).
+#> Warning: Removed 74 rows containing missing values (geom_path).
+#> Warning: Removed 72 rows containing missing values (geom_path).
+
+#> Warning: Removed 72 rows containing missing values (geom_path).
+#> Warning: Removed 75 rows containing missing values (geom_path).
+
+#> Warning: Removed 75 rows containing missing values (geom_path).
+#> Warning: Removed 71 rows containing missing values (geom_path).
+#> Warning: Removed 35 rows containing missing values (geom_path).
+#> Warning: Removed 3 rows containing missing values (geom_path).
+#> Warning: Removed 10 rows containing missing values (geom_path).
 ```
+
+![](README-example-1.gif)<!-- -->
