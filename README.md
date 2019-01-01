@@ -28,16 +28,7 @@ As of right now, the package only comes with one function:
 ``` r
 library(yieldr)
 library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
 library(gganimate)
-#> Loading required package: ggplot2
 library(ggplot2)
 
 treasury_dat <- get_treasury_yields(tidy = TRUE)
@@ -52,26 +43,6 @@ treasury_dat %>%
                               "30YD")) + 
   labs(title = "Year: {frame_time}") +                             
   transition_time(NEW_DATE) 
-#> Warning: Removed 7 rows containing missing values (geom_path).
-#> Warning: Removed 75 rows containing missing values (geom_path).
-#> Warning: Removed 73 rows containing missing values (geom_path).
-#> Warning: Removed 72 rows containing missing values (geom_path).
-#> Warning: Removed 74 rows containing missing values (geom_path).
-
-#> Warning: Removed 74 rows containing missing values (geom_path).
-#> Warning: Removed 72 rows containing missing values (geom_path).
-#> Warning: Removed 73 rows containing missing values (geom_path).
-#> Warning: Removed 74 rows containing missing values (geom_path).
-#> Warning: Removed 72 rows containing missing values (geom_path).
-
-#> Warning: Removed 72 rows containing missing values (geom_path).
-#> Warning: Removed 75 rows containing missing values (geom_path).
-
-#> Warning: Removed 75 rows containing missing values (geom_path).
-#> Warning: Removed 71 rows containing missing values (geom_path).
-#> Warning: Removed 35 rows containing missing values (geom_path).
-#> Warning: Removed 3 rows containing missing values (geom_path).
-#> Warning: Removed 10 rows containing missing values (geom_path).
 ```
 
-![](README-example-1.gif)<!-- -->
+<img src="README-example-1.gif" style="display: block; margin: auto;" />
