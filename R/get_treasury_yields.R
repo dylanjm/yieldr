@@ -55,6 +55,7 @@ get_treasury_yields <- function(from = "1990-01-01", to = Sys.Date(), tidy = FAL
   if(tidy){
     clean_yield_data <- clean_yield_data %>%
       tidyr::gather(key = "duration", value = "rate", 3:15) %>%
+      mutate(duration = forcats::fct_relevel(duration, unique(duration))) %>%
       arrange(NEW_DATE)
   }
 

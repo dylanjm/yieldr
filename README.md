@@ -34,8 +34,9 @@ library(ggplot2)
 treasury_dat <- get_treasury_yields(tidy = TRUE)
 
 treasury_dat %>% 
-  mutate(duration = forcats::fct_relevel(duration, unique(treasury_dat$duration))) %>% 
-  filter(!duration %in% c("BC_1MONTH", "BC_2MONTH", "BC_30YEARDISPLAY")) %>% 
+  filter(!duration %in% c("BC_1MONTH", 
+                          "BC_2MONTH", 
+                          "BC_30YEARDISPLAY")) %>% 
   ggplot(aes(x = duration, y = rate, group = NEW_DATE)) + 
   geom_line() + 
   scale_x_discrete(labels = c("3M", "6M", "1Y", "2Y",
@@ -44,4 +45,4 @@ treasury_dat %>%
   transition_time(NEW_DATE) 
 ```
 
-<img src="README-example-1.gif" style="display: block; margin: auto;" />
+<img src="man/figures/README-example-1.gif"/>

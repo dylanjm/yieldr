@@ -4,7 +4,7 @@
 \alias{get_treasury_yields}
 \title{Fetch Treasury Yield Data}
 \usage{
-get_treasury_yields(from = "1990-01-01", to = Sys.Date(),
+get_treasury_yields(from = "1990-01-01", to = base::Sys.Date(),
   tidy = FALSE)
 }
 \arguments{
